@@ -8,9 +8,12 @@
 public class Carro
 {
     // instance variables - replace the example below with your own
+    private static final double MAX_GALONES = 20;
+    
     private String color; //cadena de texto
     private double galones; //este tipo de dato puede ser decimal
     private boolean encendido; //puede tener solo dos valores cierto o falso
+    private char asientos[];
 
     /**
      * Constructor for objects of class Carro
@@ -21,13 +24,19 @@ public class Carro
         this.color = "Negro"; //palabra reservada this, que hace referencia a misma clase que se este trabajando.
         this.galones = 30.5;
         this.encendido = false;
+        this.asientos = new char[]{'-','-','-','-'};
     }
 
     public Carro(String newColor, double newGalones, boolean newArrancado)
     {
         // initialise instance variables
         this.color = newColor; //palabra reservada this, que hace referencia a la misma clase donde se esta trabajando.
-        this.galones = newGalones;
+        //this.galones = newGalones;
+        if(newGalones < MAX_GALONES){
+            this.galones = newGalones;
+        }else{
+            this.galones = 0.0;
+        }
         this.encendido = newArrancado;
     }
     
@@ -38,7 +47,11 @@ public class Carro
     }
     
     public void setGalones(double newGalones){
-        this.galones = newGalones;
+        if(newGalones < MAX_GALONES){
+            this.galones = newGalones;
+        }else{
+            this.galones = 0.0;
+        }
     }
     
     public void setEncendido(boolean newArrancado){
@@ -64,8 +77,19 @@ public class Carro
         cad +="El carro tiene lo siguientes atributos: ";
         cad +="\t-El Color es: " + getColor() + "\n";
         cad +="\t Tiene en el tanque: " + getGalones() + "\n";
-        cad +="\t-El estado del carro es: " + getEncendido();
+        
+        if(getEncendido() == true){
+            cad +="\t-El estado del carro es Encendido";
+        }else{
+            cad +="\t-El estado del carro es Apagado";
+        }
+        
+        System.out.println(cad);
         return cad;
+    }
+    
+    public void ocuparLugar(int pos){
+        this.asientos[pos] = 'x'; 
     }
     
 }
